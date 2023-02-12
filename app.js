@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-
+const express = require("express")
+const app= express()
 mongoose.set('strictQuery', false);
 mongoose.connect("mongodb://localhost:27017/fruitsDB", { useNewUrlParser: true })
 
@@ -35,25 +36,32 @@ fruit.save();
 //   console.log("Connected successfully to server");
 
 //   const db = client.db(dbName);
-  
+
 //   // insertDocuments(db,function(){
 //       client.close()
 //   // })
 // });
 
-const insertDocuments = function(db, callback) {
-    // Get the documents collection
-    const collection = db.collection('fruits');
-    // Insert some documents
-    collection.insertMany([
-      {name : "apple" , score : 8 ,review : "great fruit" }, 
-      {name : "mango" ,score : 2,review :"not good"},
-      {name :"banana",score :3,review :"great"}
-    ], function(err, result) {
-      assert.equal(err, null);
-      assert.equal(3, result.result.n);
-      assert.equal(3, result.ops.length);
-      console.log("Inserted 3 documents into the collection");
-      callback(result);
-    });
-  }
+// const insertDocuments = function(db, callback) {
+//     // Get the documents collection
+//     const collection = db.collection('fruits');
+//     // Insert some documents
+//     collection.insertMany([
+//       {name : "apple" , score : 8 ,review : "great fruit" },
+//       {name : "mango" ,score : 2,review :"not good"},
+//       {name :"banana",score :3,review :"great"}
+//     ], function(err, result) {
+//       assert.equal(err, null);
+//       assert.equal(3, result.result.n);
+//       assert.equal(3, result.ops.length);
+//       console.log("Inserted 3 documents into the collection");
+//       callback(result);
+//     });
+//   }
+
+  app.get("/",(req,res)=>{
+    res.send("hello");
+  })
+  app.listen(3030,(err)=>{
+    if(!err)console.log("server started")
+  })
